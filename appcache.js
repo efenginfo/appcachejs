@@ -18,8 +18,77 @@
 
 	appcache.UPDATE_CHECK_FREQENCY_MS = 3600 * 1000; //One Hour
 
+	appcache.startUpdaterCheck = function() {
+		if (window.applicationCache) {
+			applicationCache.addEventListener("updateready", function() {
+				if (confirm("An update is available. Reload now?")) {
+					window.location.reload();
+				}
+			});
+		}
+	}
+
+	function checkUpdate() {
+
+	}
+
+	function update() {
+
+	}
+
+	function cached() {
+
+	}
+
+	function checking() {
+
+	}
+
+	function downloading() {
+
+	}
+
+	function error() {
+
+	}
+
+	function noupdate() {
+
+	}
+
+	function obsolete() {
+
+	}
+
+	function progress() {
+
+	}
+
+	function updateready() {
+
+	}
+
+	function logMessage(msg) {
+		if (appcache.DEBUG) {
+			console.log(msg)
+		}
+	}
+	
 	appcache.init = function() {
+		if (typeof window.applicationCache === "undefined") {
+			return;
+		}
+		var cache = appcache.cache = window.applicationCache;
 		
+		cache.addEventListener("cached", handleCacheEvent, false);
+		cache.addEventListener("checking", handleCacheEvent, false);
+		cache.addEventListener("downloading", handleCacheEvent, false);
+		cache.addEventListener("error", handleCacheError, false);
+		cache.addEventListener("noupdate", handleCacheEvent, false);
+		cache.addEventListener("obsolete", handleCacheEvent, false);
+		cache.addEventListener("progress", handleCacheEvent, false);
+		cache.addEventListener("updateready", handleCacheEvent, false);
 	}();
+
 }).call(this);
 
