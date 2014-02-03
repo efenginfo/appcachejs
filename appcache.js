@@ -32,40 +32,40 @@
 
 	}
 
-	function update() {
+	function updateApp() {
 
 	}
 
 	function cached() {
-
+		logMessage("appcache reporting cached event.");
 	}
 
 	function checking() {
-
+		logMessage("appcache reporting checking event.");
 	}
 
 	function downloading() {
-
+		logMessage("appcache reporting downloading event.");
 	}
 
-	function error() {
-
+	function error(e) {
+		logMessage("appcache reporting error event.");
 	}
 
 	function noupdate() {
-
+		logMessage("appcache reporting noupdate event.");
 	}
 
 	function obsolete() {
-
+		logMessage("appcache reporting obsolete event.");
 	}
 
 	function progress() {
-
+		logMessage("appcache reporting progress event.");
 	}
 
 	function updateready() {
-
+		logMessage("appcache reporting updateready event.");
 	}
 
 	function logMessage(msg) {
