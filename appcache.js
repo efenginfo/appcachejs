@@ -36,15 +36,15 @@
 
 	}
 
-	function cached() {
+	function cached(e) {
 		logMessage("appcache reporting cached event.");
 	}
 
-	function checking() {
+	function checking(e) {
 		logMessage("appcache reporting checking event.");
 	}
 
-	function downloading() {
+	function downloading(e) {
 		logMessage("appcache reporting downloading event.");
 	}
 
@@ -52,19 +52,19 @@
 		logMessage("appcache reporting error event.");
 	}
 
-	function noupdate() {
+	function noupdate(e) {
 		logMessage("appcache reporting noupdate event.");
 	}
 
-	function obsolete() {
+	function obsolete(e) {
 		logMessage("appcache reporting obsolete event.");
 	}
 
-	function progress() {
+	function progress(e) {
 		logMessage("appcache reporting progress event.");
 	}
 
-	function updateready() {
+	function updateready(e) {
 		logMessage("appcache reporting updateready event.");
 	}
 
@@ -80,14 +80,14 @@
 		}
 		var cache = appcache.cache = window.applicationCache;
 		
-		cache.addEventListener("cached", handleCacheEvent, false);
-		cache.addEventListener("checking", handleCacheEvent, false);
-		cache.addEventListener("downloading", handleCacheEvent, false);
-		cache.addEventListener("error", handleCacheError, false);
-		cache.addEventListener("noupdate", handleCacheEvent, false);
-		cache.addEventListener("obsolete", handleCacheEvent, false);
-		cache.addEventListener("progress", handleCacheEvent, false);
-		cache.addEventListener("updateready", handleCacheEvent, false);
+		cache.addEventListener("cached", cached, false);
+		cache.addEventListener("checking", checking, false);
+		cache.addEventListener("downloading", downloading, false);
+		cache.addEventListener("error", error, false);
+		cache.addEventListener("noupdate", noupdate, false);
+		cache.addEventListener("obsolete", obsolete, false);
+		cache.addEventListener("progress", progress, false);
+		cache.addEventListener("updateready", updateready, false);
 	}();
 
 }).call(this);

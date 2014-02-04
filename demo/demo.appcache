@@ -1,11 +1,14 @@
 CACHE MANIFEST
 
-#version 1
+#version 5
 
 CACHE:
 
 index.html
 ../appcache.js
+
+#Let's generate an error!
+n8dawg.html
 
 NETWORK:
 
