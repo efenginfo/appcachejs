@@ -1,6 +1,13 @@
 "use strict";
 
 (function(){
+	if (!window.applicationCache) {
+		console.log("Application Cache not supported in this environment.");
+		return;
+	}
+
+	var cache = window.applicationCache;
+
 	var root = this;
 
 	var previousAppcache = null;
@@ -10,33 +17,39 @@
 
 	var appcache = root.appcache = {};
 	
-	appcache.VERSION = "0.1.0";
+	appcache.version = "0.1.0";
 
-	appcache.DEBUG = false;
+	appcache.debug = false;
 
-	appcache.AUTO_RELOAD = false;
+	appcache.autoReload = false;
 
-	appcache.UPDATE_CHECK_FREQENCY_MS = 3600 * 1000; //One Hour
+	appcache.updateCheckFreq = 3600 * 1000 * 24; 
+
+	appcache.promptUpdate = true;
 
 	appcache.startUpdaterCheck = function() {
-		if (window.applicationCache) {
-			applicationCache.addEventListener("updateready", function() {
-				if (confirm("An update is available. Reload now?")) {
-					window.location.reload();
-				}
-			});
+		if (checkUpdate()) {
+			update();
 		}
+		setTimeout(appcache.checkUpdate(), appcache.updateCheckFreq);
 	}
 
-	function checkUpdate() {
-
+	appcach.checkUpdate = function() {
+		cache.removeEventListener("updateready", appcache.update, false);
+		cache.addEventListener("updateready", appcache.update, false);
+		cache.update();	
 	}
 
-	function updateApp() {
-
+	function update() {
+		if (appcache.promptUdate) 
+			if(!confirm("An update is available. Reload now?")) {
+				return;
+			}
+		}
+		window.location.reload();
 	}
 
-	function cached(e) {
+	/*function cached(e) {
 		logMessage("appcache reporting cached event.");
 	}
 
@@ -88,7 +101,7 @@
 		cache.addEventListener("obsolete", obsolete, false);
 		cache.addEventListener("progress", progress, false);
 		cache.addEventListener("updateready", updateready, false);
-	}();
+	}();*/
 
 }).call(this);
 
