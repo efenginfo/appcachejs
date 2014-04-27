@@ -3,10 +3,12 @@
 	<head>
 		<script src="../appcache.js"></script>
 		<script>
-			appcache.DEBUG = true;
-		script>
+			appcache.updateCheckFreq = 10000;
+			appcache.promptUpdate = true;
+			appcache.startUpdater();
+		</script>
 	</head>
 	<body>
-		Hello World!
+		<p>Hello appcachejs</p>
 	</body>
 </html>

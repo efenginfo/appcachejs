@@ -2,11 +2,9 @@
 
 (function(){
 	if (!window.applicationCache) {
-		console.log("Application Cache not supported in this environment.");
+		console.log("Application cache not supported in this environment.");
 		return;
 	}
-
-	var cache = window.applicationCache;
 
 	var root = this;
 
@@ -17,9 +15,9 @@
 
 	var appcache = root.appcache = {};
 	
-	appcache.version = "0.1.0";
+	appcache.cache = window.applicationCache;
 
-	appcache.debug = false;
+	appcache.version = "0.2.0";
 
 	appcache.autoReload = false;
 
@@ -27,81 +25,66 @@
 
 	appcache.promptUpdate = true;
 
-	appcache.startUpdaterCheck = function() {
-		if (checkUpdate()) {
-			update();
-		}
-		setTimeout(appcache.checkUpdate(), appcache.updateCheckFreq);
-	}
+	appcache.startUpdater = function() {
+		appcache.checkUpdate();
+		setInterval(appcache.checkUpdate, appcache.updateCheckFreq);
+	};
 
-	appcach.checkUpdate = function() {
-		cache.removeEventListener("updateready", appcache.update, false);
-		cache.addEventListener("updateready", appcache.update, false);
-		cache.update();	
-	}
+	appcache.checkUpdate = function() {
+		var now = new Date();
+		console.log("Checking for update " + now.toLocaleDateString() + " " + now.toLocaleTimeString());
+		appcache.cache.removeEventListener("updateready", appcache.update, false);
+		appcache.cache.addEventListener("updateready", appcache.update, false);
+		appcache.cache.update();
+	};
 
-	function update() {
-		if (appcache.promptUdate) 
-			if(!confirm("An update is available. Reload now?")) {
-				return;
-			}
+	appcache.update = function() {
+		if (appcache.promptUpdate && !confirm("An update is available. Reload now?")) {
+			return;
 		}
 		window.location.reload();
-	}
+	};
 
-	/*function cached(e) {
-		logMessage("appcache reporting cached event.");
+	function cached(e) {
+		console.log("appcache reporting cached event: " + JSON.stringify(e));
 	}
 
 	function checking(e) {
-		logMessage("appcache reporting checking event.");
+		console.log("appcache reporting checking event: " + JSON.stringify(e));
 	}
 
 	function downloading(e) {
-		logMessage("appcache reporting downloading event.");
+		console.log("appcache reporting downloading event: " + JSON.stringify(e));
 	}
 
 	function error(e) {
-		logMessage("appcache reporting error event.");
+		console.log("appcache reporting error event: " + JSON.stringify(e));
 	}
 
 	function noupdate(e) {
-		logMessage("appcache reporting noupdate event.");
+		console.log("appcache reporting noupdate event: " + JSON.stringify(e));
 	}
 
 	function obsolete(e) {
-		logMessage("appcache reporting obsolete event.");
+		console.log("appcache reporting obsolete event: " + JSON.stringify(e));
 	}
 
 	function progress(e) {
-		logMessage("appcache reporting progress event.");
+		console.log("appcache reporting progress event: " + JSON.stringify(e));
 	}
 
 	function updateready(e) {
-		logMessage("appcache reporting updateready event.");
-	}
-
-	function logMessage(msg) {
-		if (appcache.DEBUG) {
-			console.log(msg)
-		}
+		console.log("appcache reporting updateready event: " + JSON.stringify(e));
 	}
 	
-	appcache.init = function() {
-		if (typeof window.applicationCache === "undefined") {
-			return;
-		}
-		var cache = appcache.cache = window.applicationCache;
-		
-		cache.addEventListener("cached", cached, false);
-		cache.addEventListener("checking", checking, false);
-		cache.addEventListener("downloading", downloading, false);
-		cache.addEventListener("error", error, false);
-		cache.addEventListener("noupdate", noupdate, false);
-		cache.addEventListener("obsolete", obsolete, false);
-		cache.addEventListener("progress", progress, false);
-		cache.addEventListener("updateready", updateready, false);
-	}();*/
+	appcache.cache.addEventListener("cached", cached, false);
+	appcache.cache.addEventListener("checking", checking, false);
+	appcache.cache.addEventListener("downloading", downloading, false);
+	appcache.cache.addEventListener("error", error, false);
+	appcache.cache.addEventListener("noupdate", noupdate, false);
+	appcache.cache.addEventListener("obsolete", obsolete, false);
+	appcache.cache.addEventListener("progress", progress, false);
+	appcache.cache.addEventListener("updateready", updateready, false);
 
 }).call(this);
 
