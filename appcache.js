@@ -1,3 +1,7 @@
+// AppcacheJS (c) 2014 Nate Trimble
+// AppcacheJS may be freely distributed under the MIT license.
+// For details see https://github.com/ngtrimble/appcachejs
+
 "use strict";
 
 (function(){
