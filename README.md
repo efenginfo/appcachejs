@@ -15,7 +15,7 @@ Optionally, configure the frequency (in milliseconds) with for checking for upda
 
 > appcache.updateCheckFreq = 10000;
 
-Finally, start the updater which will immediately check for an update and sechedule and update to occur ever appcache.updateCheckFreq milliseconds.
+Finally, start the updater which will immediately check for an update and sechedule an update check to occur ever appcache.updateCheckFreq milliseconds.
 
 > appcache.startUpdater();
 
