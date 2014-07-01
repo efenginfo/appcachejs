@@ -11,11 +11,11 @@ To use appcachejs just include appcache.js in your web application:
 
 > <script src="appcache.js"></script>
 
-Optionally, configure the frequency (in milliseconds) with for checking for updates. The default is 24 hours.
+Optionally, configure the frequency (in milliseconds) for checking for updates. The default is 24 hours.
 
 > appcache.updateCheckFreq = 10000;
 
-Finally, start the updater which will immediately check for an update and sechedule an update check to occur ever appcache.updateCheckFreq milliseconds.
+Finally, start the updater which will immediately check for an update and sechedule an update check to occur every appcache.updateCheckFreq milliseconds.
 
 > appcache.startUpdater();
 
